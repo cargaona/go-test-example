@@ -28,11 +28,11 @@ func main() {
 	}
 
 	awsS3client := s3.NewFromConfig(cfg)
-	client := BucketService{
+	bucketSvc := BucketService{
 		s3: awsS3client,
 	}
 
-	response, err := client.GimmeTheBuckets()
+	response, err := bucketSvc.GimmeTheBuckets()
 	if err != nil {
 		log.Fatal()
 	}
