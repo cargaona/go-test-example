@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
@@ -31,11 +32,13 @@ func main() {
 		s3: awsS3client,
 	}
 
-	buckets, err := client.GimmeTheBuckets()
+	response, err := client.GimmeTheBuckets()
 	if err != nil {
 		log.Fatal()
 	}
-	fmt.Println(buckets.Buckets)
+	for _, bucket := range response.Buckets {
+		fmt.Println(aws.ToString(bucket.Name))
+	}
 }
 
 // GimmeTheBuckets is a BucketService method that hides the implementation for listing buckets.
